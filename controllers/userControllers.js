@@ -13,7 +13,7 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
-
+  //GET a single User
   async getSingleUser(req, res) {
     try {
       const user = await User.findOne({ _id: req.params.userId })
@@ -31,7 +31,7 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
-
+  //POST a new user in the system
   async createUser(req, res) {
     try {
       const newUser = await User.create(req.body);
@@ -42,7 +42,7 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
-
+  //PUT any updates to an individual user
   async updateUser(req, res) {
     try {
       const user = await User.findOneAndUpdate(
@@ -61,10 +61,10 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
-
+  //DELETE a single User
   async deleteUser(req, res) {
     try {
-      const user = await User.findOneAndRemove({ _id: req.params.userId });
+      const user = await User.deleteOne({ _id: req.params.userId });
 
       if (!user) {
         res.status(404).json({ message: "No User found with that ID!" });
@@ -80,14 +80,15 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
-
+  //POST a new friend to friends array
   async createFriend(req, res) {
     try {
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
         { $addToSet: { friends: req.params.friendId } },
         { runValidators: true, new: true }
-      );
+      )
+      .populate(`friends`)
 
       if (!user) {
         res.status(404).json({ message: "No User found with that ID!" });
@@ -99,10 +100,10 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
-
+  //DELETE a current friend from friends array
   async deleteFriend(req, res) {
     try {
-      const user = findOneAndUpdate(
+      const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
         { $pull: { friends: req.params.friendId } },
         { runValidators: true, new: true }
