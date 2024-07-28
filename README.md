@@ -23,7 +23,7 @@ The controllers handling server requests can be found in the [./controllers](./c
 
 ## Usage
 
-A video walkthrough displaying the functionality of this API can be found [here]
+A video walkthrough displaying the functionality of this API can be found [here](https://drive.google.com/file/d/1yxBq0eYKzrcDFcB1f4_xhsR71FQSqdMO/view)
 
 ## Credits
 

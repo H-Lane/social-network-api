@@ -87,8 +87,7 @@ module.exports = {
         { _id: req.params.userId },
         { $addToSet: { friends: req.params.friendId } },
         { runValidators: true, new: true }
-      )
-      .populate(`friends`)
+      ).populate(`friends`);
 
       if (!user) {
         res.status(404).json({ message: "No User found with that ID!" });
